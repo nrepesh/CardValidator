@@ -1,0 +1,32 @@
+def validator(card):
+    odd = 0
+    even = 0
+    number = [x for x in str(card)]           # Turn number to list
+    kindOf = number[0]
+    kinds = {'3':'travel/entertainment cards','4':'Visa','5':'MasterCard','6':'Discover Card'}    # Dictionary of types of cards
+    print(f'\nThank you for entering your {kinds[kindOf]} card')
+    
+    for i in range(len(number)-1,-1,-1):      # Reverse and parse through list
+        double = int(number[i])*2             # If odd then just add 
+        if i%2 != 0:
+            odd += int(number[i])
+        elif i%2 == 0 and double < 10:        # If even double and add 
+            even += double
+        else:                                 # If double of even is 2 digits then add the digits 
+            add = 0
+            temp = double
+            for each in str(temp):
+                add += int(each)
+            even += add
+            
+    print(f'{odd} odd digits,{even} doubled even digits')
+    if (even+odd)%10 == 0:                    # Sum of odd and even must be divisible by 10
+        return True
+    else:
+        return False
+
+card = input('Enter Credit Card Number (Travel/Visa/MasterCard/Discover Card): ')
+if validator(card) == True:
+    print('\nA valid credit card')
+else:
+    print('\nInvalid credit card, please try again!')
